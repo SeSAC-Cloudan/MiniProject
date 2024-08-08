@@ -1,0 +1,64 @@
+name: develop CI
+
+on:
+  pull_request:
+    branches: [ "develop" ]
+
+permissions:
+  checks: write
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 리포지토리 코드를 Github Actions 컴퓨터 Runner에 업로드합니다.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Runner에서 프로젝트 build 시 필요한 DB 설치
+      - name: MySQL 설치
+        uses: samin/mysql-action@v1
+        with:
+          mysql database: ${{ secrets.DB_URL }}
+          mysql user: ${{ secrets.DB_USERNAME }}
+          mysql password: ${{ secrets.DB_PASSWORD }}
+
+      # Runner에서 프로젝트 build 시 필요한 application.properties 생성
+      - name: properties 파일 생성
+        run: |
+          cd ./src/main
+          mkdir resources
+          cd resources
+          touch ./application.properties
+          echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./application.properties
+        shell: bash
+
+      - name: JDK 17 설치
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      # gradle 실행 허가
+      - name: Run chmod to make gradlew executable
+        run: chmod +x ./gradlew
+
+      # project build
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: 테스트 결과 PR에 코멘트 작성
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()  # 테스트가 실패했을때만 or 테스트가 성공했을때만 알려주기(여기선 둘다!)
+        with:
+          files: |
+            **/build/test-results/**/*.xml
+
+      # Files changed에서 어디에서 잘못되었는지 가르쳐준다.
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: success() || failure() # always run even if the previous step fails
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'
