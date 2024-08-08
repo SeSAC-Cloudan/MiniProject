@@ -21,7 +21,7 @@ jobs:
       - name: MySQL 설치
         uses: samin/mysql-action@v1
         with:
-          mysql database: ${{ secrets.DB_URL }}
+          mysql database: ${{ secrets.DB_NAME }}
           mysql user: ${{ secrets.DB_USERNAME }}
           mysql password: ${{ secrets.DB_PASSWORD }}
 
