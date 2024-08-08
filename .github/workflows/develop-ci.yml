@@ -21,6 +21,11 @@ jobs:
       - name: MySQL 설치
         uses: samin/mysql-action@v1
         with:
+          host port: 3306
+          container port: 3307
+          character set server: 'utf8mb4'
+          collation server: 'utf8mb4_general_ci'
+          mysql version: 'latest'
           mysql database: ${{ secrets.DB_NAME }}
           mysql user: ${{ secrets.DB_USERNAME }}
           mysql password: ${{ secrets.DB_PASSWORD }}
