@@ -18,16 +18,15 @@ jobs:
         uses: actions/checkout@v4
 
       # Runner에서 프로젝트 build 시 필요한 DB 설치
-      - name: set up MySQL
-        uses: mirromutth/mysql-action@v1.1
+      - name: MySQL 설치
+        uses: samin/mysql-action@v1
         with:
           host port: 3306
           container port: 3306
           character set server: 'utf8mb4'
           collation server: 'utf8mb4_general_ci'
           mysql version: '8.0'
-          mysql database: 'miniproject'
-          mysql root password: ${{ secrets.DB_PASSWORD }}
+          mysql database: ${{ secrets.DB_NAME }}
           mysql user: ${{ secrets.DB_USERNAME }}
           mysql password: ${{ secrets.DB_PASSWORD }}
 
@@ -39,8 +38,6 @@ jobs:
           cd resources
           touch ./application.properties
           echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./application.properties
-          pwd
-          cat application.properties
         shell: bash
 
       - name: Set up JDK 17
