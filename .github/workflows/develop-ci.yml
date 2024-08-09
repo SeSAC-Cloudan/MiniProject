@@ -55,7 +55,7 @@ jobs:
 
       # project build
       - name: Build with Gradle
-        run: ./gradlew build -x test
+        run: ./gradlew build
 
       - name: 테스트 결과 PR에 코멘트 작성
         uses: EnricoMi/publish-unit-test-result-action@v2
