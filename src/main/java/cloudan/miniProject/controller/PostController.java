@@ -1,8 +1,12 @@
 package cloudan.miniProject.controller;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cloudan.miniProject.common.dto.ApiResponseDto;
 import cloudan.miniProject.service.PostService;
 import lombok.RequiredArgsConstructor;
 
@@ -11,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")     // 이 컨트롤러들의 요청 엔드포인트 중 가장 앞에 공통되는 부분입니다.
 public class PostController {
     private final PostService postService;
+    // todo 나중에 지워야 할 예시입니다.
+
     /**
      * 게시글 조회 API 예시
      * @GetMapping("/posts/{id}")
@@ -27,4 +33,9 @@ public class PostController {
      * }
      */
 
+    @DeleteMapping("/posts/{id}")
+    public ResponseEntity<ApiResponseDto> deletePost(@PathVariable int id) {
+        ApiResponseDto responseDto = postService.deletePost(id);
+        return ResponseEntity.ok().body(responseDto);
+    }
 }

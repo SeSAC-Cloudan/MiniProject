@@ -1,6 +1,7 @@
 package cloudan.miniProject.model;
 
 import cloudan.miniProject.common.entity.Timestamped;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,4 +23,10 @@ public class Post extends Timestamped {
     // 자동증가방식의 경우 JPA에서 자동으로 id를 할당하는데
     // 아직 ID가 할당되지 않았다는 뜻으로 null값을 이용할 수 도 있기 때문인 것으로 추측됩니다.
     private Integer id;
+    @Column(nullable = false)
+    private String title;
+    @Column(nullable = false, length = 50)
+    private String author;
+    @Column(nullable = false)
+    private String content;
 }
