@@ -19,7 +19,7 @@ jobs:
 
       # Runner에서 프로젝트 build 시 필요한 DB 설치
       - name: MySQL 설치
-        uses: samin/mysql-action@v1
+        uses: mirromutth/mysql-action@v1.1
         with:
           host port: 3306
           container port: 3306
