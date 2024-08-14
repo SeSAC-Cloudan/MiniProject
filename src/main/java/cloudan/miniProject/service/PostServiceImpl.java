@@ -7,6 +7,7 @@ import cloudan.miniProject.common.constants.PostConstants;
 import cloudan.miniProject.common.dto.ApiResponseDto;
 import cloudan.miniProject.common.exception.CustomErrorCode;
 import cloudan.miniProject.common.exception.CustomException;
+import cloudan.miniProject.dto.PostResponseDto;
 import cloudan.miniProject.model.Post;
 import cloudan.miniProject.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,12 @@ public class PostServiceImpl implements PostService {
         findPost(id);
         postRepository.deleteById(id);
         return new ApiResponseDto(PostConstants.DELETE_SUCCESS);
+    }
+
+    @Override
+    public PostResponseDto getPost(int id) {
+        Post post = findPost(id);
+        return post.toResponseDto();
     }
 
     private Post findPost(int id) {
