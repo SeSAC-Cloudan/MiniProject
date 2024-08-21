@@ -1,6 +1,7 @@
 package cloudan.miniProject.service;
 
 import cloudan.miniProject.common.dto.ApiResponseDto;
+import cloudan.miniProject.dto.PostRequestDto;
 import cloudan.miniProject.dto.PostResponseDto;
 
 public interface PostService {
@@ -17,4 +18,11 @@ public interface PostService {
      * @return 게시글 정보
      */
     PostResponseDto getPost(int id);
+
+    /**
+     * 게시글 등록 정보를 받아 게시글을 등록합니다.
+     * @param requestDto 등록할 게시글 정보
+     * @return 등록된 게시글 정보
+     */
+    PostResponseDto createPost(PostRequestDto requestDto);
 }

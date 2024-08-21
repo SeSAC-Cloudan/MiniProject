@@ -7,6 +7,7 @@ import cloudan.miniProject.common.constants.PostConstants;
 import cloudan.miniProject.common.dto.ApiResponseDto;
 import cloudan.miniProject.common.exception.CustomErrorCode;
 import cloudan.miniProject.common.exception.CustomException;
+import cloudan.miniProject.dto.PostRequestDto;
 import cloudan.miniProject.dto.PostResponseDto;
 import cloudan.miniProject.model.Post;
 import cloudan.miniProject.repository.PostRepository;
@@ -26,9 +27,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PostResponseDto getPost(int id) {
         Post post = findPost(id);
         return post.toResponseDto();
+    }
+
+    @Override
+    public PostResponseDto createPost(PostRequestDto requestDto) {
+        Post post = requestDto.toEntity();
+        Post savedPost = postRepository.save(post);
+        return savedPost.toResponseDto();
     }
 
     private Post findPost(int id) {
