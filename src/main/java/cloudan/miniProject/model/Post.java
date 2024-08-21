@@ -1,6 +1,7 @@
 package cloudan.miniProject.model;
 
 import cloudan.miniProject.common.entity.Timestamped;
+import cloudan.miniProject.dto.PostRequestDto;
 import cloudan.miniProject.dto.PostResponseDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,5 +40,11 @@ public class Post extends Timestamped {
             .content(content)
             .createdAt(getCreatedAt())
             .build();
+    }
+
+    public void update(PostRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.author = requestDto.getAuthor();
+        this.content = requestDto.getContent();
     }
 }
