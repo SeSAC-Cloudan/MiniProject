@@ -25,4 +25,12 @@ public interface PostService {
      * @return 등록된 게시글 정보
      */
     PostResponseDto createPost(PostRequestDto requestDto);
+
+    /**
+     * 게시글 수정 정보를 받아 게시글을 수정합니다.
+     * @param id 수정할 게시글 ID
+     * @param requestDto 게시글 수정 정보
+     * @return 수정된 게시글 정보
+     */
+    PostResponseDto updatePost(int id, PostRequestDto requestDto);
 }

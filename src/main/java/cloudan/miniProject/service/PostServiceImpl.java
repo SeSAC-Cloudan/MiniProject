@@ -40,6 +40,13 @@ public class PostServiceImpl implements PostService {
         return savedPost.toResponseDto();
     }
 
+    @Override
+    public PostResponseDto updatePost(int id, PostRequestDto requestDto) {
+        Post post = findPost(id);
+        post.update(requestDto);
+        return post.toResponseDto();
+    }
+
     private Post findPost(int id) {
         return postRepository.findById(id).orElseThrow(
             () -> new CustomException(CustomErrorCode.POST_NOT_FOUND)
