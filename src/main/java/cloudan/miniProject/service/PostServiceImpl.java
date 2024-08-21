@@ -1,5 +1,7 @@
 package cloudan.miniProject.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +47,12 @@ public class PostServiceImpl implements PostService {
         Post post = findPost(id);
         post.update(requestDto);
         return post.toResponseDto();
+    }
+
+    @Override
+    public List<PostResponseDto> getAllPosts() {
+        List<Post> posts = postRepository.findAll();
+        return posts.stream().map(Post::toResponseDto).toList();
     }
 
     private Post findPost(int id) {
