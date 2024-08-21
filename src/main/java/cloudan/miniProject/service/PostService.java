@@ -1,5 +1,7 @@
 package cloudan.miniProject.service;
 
+import java.util.List;
+
 import cloudan.miniProject.common.dto.ApiResponseDto;
 import cloudan.miniProject.dto.PostRequestDto;
 import cloudan.miniProject.dto.PostResponseDto;
@@ -33,4 +35,10 @@ public interface PostService {
      * @return 수정된 게시글 정보
      */
     PostResponseDto updatePost(int id, PostRequestDto requestDto);
+
+    /**
+     * 모든 게시글을 불러옵니다.
+     * @return 모든 게시글 정보
+     */
+    List<PostResponseDto> getAllPosts();
 }

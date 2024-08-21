@@ -1,5 +1,7 @@
 package cloudan.miniProject.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,5 +49,11 @@ public class PostController {
         @Valid @RequestBody PostRequestDto requestDto) {
         PostResponseDto responseDto = postService.updatePost(id, requestDto);
         return ResponseEntity.ok().body(responseDto);
+    }
+
+    @GetMapping("/posts")
+    public ResponseEntity<List<PostResponseDto>> getAllPosts() {
+        List<PostResponseDto> responseDtos = postService.getAllPosts();
+        return ResponseEntity.ok().body(responseDtos);
     }
 }
